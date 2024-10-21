@@ -1,85 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Website</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        nav {
-            background-color: #2c3e50;
-            padding: 15px;
-        }
-        nav ul {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-        }
-        nav ul li {
-            margin: 0 15px;
-        }
-        nav ul li a {
-            color: #ecf0f1;
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-        }
-        nav ul li a:hover {
-            background-color: #34495e;
-        }
-        nav ul li a.active {
-            background-color: #2980b9;
-        }
-        .container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        form {
-            display: grid;
-            gap: 20px;
-        }
-        label {
-            font-weight: bold;
-            color: #34495e;
-        }
-    </style>
-</head>
-<body>
-    <nav>
-        <ul>
-            <li><a href="index.html" >Home</a></li>
-            <li><a href="data-insights.html" class="active">Data Insights</a></li>
-            <li><a href="model.html">Model</a></li>
-            <li><a href="traditional-prediction.html">Traditional Predictions</a></li>
-            <li><a href="online-prediction.html">Online Predictions</a></li>
-        </ul>
-    </nav>
-    <!-- Add your content here -->
-</body>
-</html>
 
-<!DOCTYPE html>
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>new</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>full</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7596,6 +7520,367 @@ a.anchor-link {
 </div>
 </div>
 </div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=790f0166">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [41]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Required Libraries</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=3f55ed50">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [42]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Load datasets from CSV files</span>
+<span class="n">traditional_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'traditional_campaign.csv'</span><span class="p">)</span>  <span class="c1"># Load traditional campaign data</span>
+<span class="n">online_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'facebook_campaign.csv'</span><span class="p">)</span>  <span class="c1"># Load online campaign data</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=ded4f527">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [43]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">traditional_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">online_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>   MarketID MarketSize  LocationID  AgeOfStore  Promotion  Week  \
+0         1      Small         101           5          1     1   
+1         2     Medium         102          10          2     1   
+2         3      Large         103          15          3     2   
+3         4      Small         104           8          1     2   
+4         5      Large         105          12          2     3   
+
+   SalesInThousands  
+0              10.5  
+1              15.2  
+2              20.1  
+3              14.8  
+4              19.3  
+   impressions  clicks   CPC  CPM  reach  conversions   ctr
+0        10000     200  0.50   10   8000           10  0.02
+1        15000     300  0.60   12  12000           15  0.02
+2        20000     400  0.70   14  15000           20  0.02
+3        12000     250  0.55   11   9000           12  0.02
+4        18000     350  0.65   13  14000           18  0.02
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=657978e5">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Data-Cleaning-and-Preprocessing-(Traditional-Campaign-Dataset)">Data Cleaning and Preprocessing (Traditional Campaign Dataset)<a class="anchor-link" href="#Data-Cleaning-and-Preprocessing-(Traditional-Campaign-Dataset)">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=6c99279d">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [44]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># 1. Encoding categorical features</span>
+<span class="c1"># The 'MarketSize' column is categorical (Small, Medium, Large), so we need to convert it into numerical form.</span>
+<span class="n">traditional_df</span><span class="p">[</span><span class="s1">'MarketSize'</span><span class="p">]</span> <span class="o">=</span> <span class="n">traditional_df</span><span class="p">[</span><span class="s1">'MarketSize'</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">'Small'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'Medium'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'Large'</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=c335c13f">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [45]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Check for any missing values in traditional campaign dataset</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">traditional_df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>MarketID            0
+MarketSize          0
+LocationID          0
+AgeOfStore          0
+Promotion           0
+Week                0
+SalesInThousands    0
+dtype: int64
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=118ffda5">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [46]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Data Cleaning and Preprocessing (Online Campaign Dataset)</span>
+<span class="c1"># Calculate CTR (Click-Through Rate) from clicks and impressions</span>
+<span class="c1"># CTR is a metric used to measure the effectiveness of online ads.</span>
+<span class="n">online_df</span><span class="p">[</span><span class="s1">'ctr'</span><span class="p">]</span> <span class="o">=</span> <span class="n">online_df</span><span class="p">[</span><span class="s1">'clicks'</span><span class="p">]</span> <span class="o">/</span> <span class="n">online_df</span><span class="p">[</span><span class="s1">'impressions'</span><span class="p">]</span>  <span class="c1"># Adding the CTR column</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=54e8eeed">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [47]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Check for any missing values in the online campaign dataset</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">online_df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>impressions    0
+clicks         0
+CPC            0
+CPM            0
+reach          0
+conversions    0
+ctr            0
+dtype: int64
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=c2e87684">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [48]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Features and Target for Traditional Campaign</span>
+<span class="c1"># Splitting features (independent variables) and target variable (dependent variable) for the traditional campaign dataset</span>
+<span class="n">X_traditional</span> <span class="o">=</span> <span class="n">traditional_df</span><span class="p">[[</span><span class="s1">'MarketSize'</span><span class="p">,</span> <span class="s1">'AgeOfStore'</span><span class="p">,</span> <span class="s1">'Promotion'</span><span class="p">,</span> <span class="s1">'Week'</span><span class="p">]]</span>  <span class="c1"># Independent variables</span>
+<span class="n">y_traditional</span> <span class="o">=</span> <span class="n">traditional_df</span><span class="p">[</span><span class="s1">'SalesInThousands'</span><span class="p">]</span>  <span class="c1"># Dependent variable (target)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=16f5223e">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [49]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Features and Target for Online Campaign</span>
+<span class="c1"># Splitting features (independent variables) and target variable (dependent variable) for the online campaign dataset</span>
+<span class="n">X_online</span> <span class="o">=</span> <span class="n">online_df</span><span class="p">[[</span><span class="s1">'impressions'</span><span class="p">,</span> <span class="s1">'CPC'</span><span class="p">,</span> <span class="s1">'CPM'</span><span class="p">,</span> <span class="s1">'reach'</span><span class="p">,</span> <span class="s1">'conversions'</span><span class="p">]]</span>  <span class="c1"># Independent variables</span>
+<span class="n">y_online</span> <span class="o">=</span> <span class="n">online_df</span><span class="p">[</span><span class="s1">'ctr'</span><span class="p">]</span>  <span class="c1"># Dependent variable (target)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=6c0a6a73">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [50]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># 2. Splitting Data into Training and Testing Sets</span>
+<span class="c1"># The dataset is divided into training and testing sets to evaluate the model's performance on unseen data.</span>
+<span class="n">X_train_trad</span><span class="p">,</span> <span class="n">X_test_trad</span><span class="p">,</span> <span class="n">y_train_trad</span><span class="p">,</span> <span class="n">y_test_trad</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_traditional</span><span class="p">,</span> <span class="n">y_traditional</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X_train_online</span><span class="p">,</span> <span class="n">X_test_online</span><span class="p">,</span> <span class="n">y_train_online</span><span class="p">,</span> <span class="n">y_test_online</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_online</span><span class="p">,</span> <span class="n">y_online</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=b40199a3">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [51]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Initialize models</span>
+<span class="n">models</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'Decision Tree'</span><span class="p">:</span> <span class="n">DecisionTreeRegressor</span><span class="p">(),</span>
+    <span class="s1">'Random Forest'</span><span class="p">:</span> <span class="n">RandomForestRegressor</span><span class="p">(),</span>
+    <span class="s1">'Linear Regression'</span><span class="p">:</span> <span class="n">LinearRegression</span><span class="p">(),</span>
+    <span class="s1">'KNN'</span><span class="p">:</span> <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=73bb4b5a">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [52]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span>    <span class="c1"># Function to Train, Predict and Evaluate Models</span>
+    <span class="k">def</span> <span class="nf">predict_and_visualize</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">dataset_name</span><span class="p">,</span> <span class="n">model_name</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="p">[</span><span class="n">model_name</span><span class="p">]</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>  <span class="c1"># Train model</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>  <span class="c1"># Predict test data</span>
+
+        <span class="c1"># Add predictions to the original DataFrame</span>
+        <span class="k">if</span> <span class="n">dataset_name</span> <span class="o">==</span> <span class="s2">"Traditional Campaign"</span><span class="p">:</span>
+            <span class="n">traditional_df</span><span class="p">[</span><span class="s1">'Predicted_Sales'</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_traditional</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">online_df</span><span class="p">[</span><span class="s1">'Predicted_CTR'</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_online</span><span class="p">)</span>
+
+        <span class="c1"># Visualization: Sales by Promotion and Market Size (Traditional Campaign)</span>
+        <span class="k">if</span> <span class="n">dataset_name</span> <span class="o">==</span> <span class="s2">"Traditional Campaign"</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+            <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">'MarketSize'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'Predicted_Sales'</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">'Promotion'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">traditional_df</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2"> - Sales by Market Size and Promotion (Traditional Campaign)"</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Predicted Sales in Thousands"</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Market Size"</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Promotion"</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="c1"># Scatter plot: Impressions vs Clicks (Online Campaign)</span>
+        <span class="k">if</span> <span class="n">dataset_name</span> <span class="o">==</span> <span class="s2">"Online Campaign"</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">online_df</span><span class="p">[</span><span class="s1">'impressions'</span><span class="p">],</span> <span class="n">online_df</span><span class="p">[</span><span class="s1">'clicks'</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Actual Clicks'</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">online_df</span><span class="p">[</span><span class="s1">'impressions'</span><span class="p">],</span> <span class="n">online_df</span><span class="p">[</span><span class="s1">'Predicted_CTR'</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Predicted CTR'</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2"> - Impressions vs Clicks (Online Campaign)"</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Impressions"</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Clicks / CTR"</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="c1"># Box Plot: Sales Distribution by Market Size</span>
+        <span class="k">if</span> <span class="n">dataset_name</span> <span class="o">==</span> <span class="s2">"Traditional Campaign"</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+            <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">'MarketSize'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'Predicted_Sales'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">traditional_df</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2"> - Sales Distribution by Market Size (Traditional Campaign)"</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Predicted Sales in Thousands"</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Market Size"</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="c1"># Box Plot: Sales Distribution by Promotion Type</span>
+        <span class="k">if</span> <span class="n">dataset_name</span> <span class="o">==</span> <span class="s2">"Traditional Campaign"</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+            <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">'Promotion'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'Predicted_Sales'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">traditional_df</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2"> - Sales Distribution by Promotion (Traditional Campaign)"</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Predicted Sales in Thousands"</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Promotion"</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="c1"># Function to evaluate model accuracy using RMSE and R² scores</span>
+    <span class="k">def</span> <span class="nf">evaluate_model</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">model_name</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="p">[</span><span class="n">model_name</span><span class="p">]</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+        <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+        <span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+        <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s1">'RMSE'</span><span class="p">:</span> <span class="n">rmse</span><span class="p">,</span> <span class="s1">'R²'</span><span class="p">:</span> <span class="n">r2</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=910d2c61-f620-4eb9-9bf6-d115ed140e63">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [53]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Store results for all models</span>
+<span class="n">evaluation_results</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'Traditional Campaign'</span><span class="p">:</span> <span class="p">{},</span> <span class="s1">'Online Campaign'</span><span class="p">:</span> <span class="p">{}}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=e513fdd5">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -7604,7 +7889,20 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [54]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Loop through each model and visualize predictions</span>
+<span class="k">for</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Visualizing predictions for </span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2"> (Traditional Campaign):"</span><span class="p">)</span>
+    <span class="n">predict_and_visualize</span><span class="p">(</span><span class="n">X_train_trad</span><span class="p">,</span> <span class="n">y_train_trad</span><span class="p">,</span> <span class="n">X_test_trad</span><span class="p">,</span> <span class="n">y_test_trad</span><span class="p">,</span> <span class="s2">"Traditional Campaign"</span><span class="p">,</span> <span class="n">model_name</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Visualizing predictions for </span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2"> (Online Campaign):"</span><span class="p">)</span>
+    <span class="n">predict_and_visualize</span><span class="p">(</span><span class="n">X_train_online</span><span class="p">,</span> <span class="n">y_train_online</span><span class="p">,</span> <span class="n">X_test_online</span><span class="p">,</span> <span class="n">y_test_online</span><span class="p">,</span> <span class="s2">"Online Campaign"</span><span class="p">,</span> <span class="n">model_name</span><span class="p">)</span>
+    
+    <span class="c1"># Evaluate model performance</span>
+    <span class="n">trad_eval</span> <span class="o">=</span> <span class="n">evaluate_model</span><span class="p">(</span><span class="n">X_train_trad</span><span class="p">,</span> <span class="n">y_train_trad</span><span class="p">,</span> <span class="n">X_test_trad</span><span class="p">,</span> <span class="n">y_test_trad</span><span class="p">,</span> <span class="n">model_name</span><span class="p">)</span>
+    <span class="n">online_eval</span> <span class="o">=</span> <span class="n">evaluate_model</span><span class="p">(</span><span class="n">X_train_online</span><span class="p">,</span> <span class="n">y_train_online</span><span class="p">,</span> <span class="n">X_test_online</span><span class="p">,</span> <span class="n">y_test_online</span><span class="p">,</span> <span class="n">model_name</span><span class="p">)</span>
+    
+    <span class="n">evaluation_results</span><span class="p">[</span><span class="s1">'Traditional Campaign'</span><span class="p">][</span><span class="n">model_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">trad_eval</span>
+    <span class="n">evaluation_results</span><span class="p">[</span><span class="s1">'Online Campaign'</span><span class="p">][</span><span class="n">model_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">online_eval</span>
 </pre></div>
 </div>
 </div>
@@ -7812,6 +8110,122 @@ Visualizing predictions for KNN (Online Campaign):
 C:\Anaconda\Lib\site-packages\sklearn\metrics\_regression.py:996: UndefinedMetricWarning: R^2 score is not well-defined with less than two samples.
   warnings.warn(msg, UndefinedMetricWarning)
 </pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=60cee38c">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [55]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Model Evaluation Results (Traditional Campaign):"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">metrics</span> <span class="ow">in</span> <span class="n">evaluation_results</span><span class="p">[</span><span class="s1">'Traditional Campaign'</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2"> - RMSE: </span><span class="si">{</span><span class="n">metrics</span><span class="p">[</span><span class="s1">'RMSE'</span><span class="p">]</span><span class="si">}</span><span class="s2">, R²: </span><span class="si">{</span><span class="n">metrics</span><span class="p">[</span><span class="s1">'R²'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Model Evaluation Results (Online Campaign):"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">metrics</span> <span class="ow">in</span> <span class="n">evaluation_results</span><span class="p">[</span><span class="s1">'Online Campaign'</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2"> - RMSE: </span><span class="si">{</span><span class="n">metrics</span><span class="p">[</span><span class="s1">'RMSE'</span><span class="p">]</span><span class="si">}</span><span class="s2">, R²: </span><span class="si">{</span><span class="n">metrics</span><span class="p">[</span><span class="s1">'R²'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>
+Model Evaluation Results (Traditional Campaign):
+Decision Tree - RMSE: 0.3999999999999986, R²: nan
+Random Forest - RMSE: 0.9570000000000132, R²: nan
+Linear Regression - RMSE: 0.6253588516746369, R²: nan
+KNN - RMSE: 0.33333333333333215, R²: nan
+
+Model Evaluation Results (Online Campaign):
+Decision Tree - RMSE: 0.0008333333333333318, R²: nan
+Random Forest - RMSE: 0.00020277777777774966, R²: nan
+Linear Regression - RMSE: 0.0007986106651210328, R²: nan
+KNN - RMSE: 9.259259259259203e-05, R²: nan
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=c071a501">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [56]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_best_model</span><span class="p">(</span><span class="n">evaluation_results</span><span class="p">):</span>
+    <span class="n">best_model_trad</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">evaluation_results</span><span class="p">[</span><span class="s1">'Traditional Campaign'</span><span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">evaluation_results</span><span class="p">[</span><span class="s1">'Traditional Campaign'</span><span class="p">][</span><span class="n">k</span><span class="p">][</span><span class="s1">'RMSE'</span><span class="p">])</span>
+    <span class="n">best_model_online</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">evaluation_results</span><span class="p">[</span><span class="s1">'Online Campaign'</span><span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">evaluation_results</span><span class="p">[</span><span class="s1">'Online Campaign'</span><span class="p">][</span><span class="n">k</span><span class="p">][</span><span class="s1">'RMSE'</span><span class="p">])</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Conclusion: Best Model for Traditional Campaign is </span><span class="si">{</span><span class="n">best_model_trad</span><span class="si">}</span><span class="s2"> based on RMSE."</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Conclusion: Best Model for Online Campaign is </span><span class="si">{</span><span class="n">best_model_online</span><span class="si">}</span><span class="s2"> based on RMSE."</span><span class="p">)</span>
+
+<span class="c1"># Determine the best model</span>
+<span class="k">def</span> <span class="nf">get_best_model</span><span class="p">(</span><span class="n">evaluation_results</span><span class="p">):</span>
+    <span class="n">best_model_trad</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">evaluation_results</span><span class="p">[</span><span class="s1">'Traditional Campaign'</span><span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">evaluation_results</span><span class="p">[</span><span class="s1">'Traditional Campaign'</span><span class="p">][</span><span class="n">k</span><span class="p">][</span><span class="s1">'RMSE'</span><span class="p">])</span>
+    <span class="n">best_model_online</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">evaluation_results</span><span class="p">[</span><span class="s1">'Online Campaign'</span><span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">evaluation_results</span><span class="p">[</span><span class="s1">'Online Campaign'</span><span class="p">][</span><span class="n">k</span><span class="p">][</span><span class="s1">'RMSE'</span><span class="p">])</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Conclusion: Best Model for Traditional Campaign is </span><span class="si">{</span><span class="n">best_model_trad</span><span class="si">}</span><span class="s2"> based on RMSE."</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Conclusion: Best Model for Online Campaign is </span><span class="si">{</span><span class="n">best_model_online</span><span class="si">}</span><span class="s2"> based on RMSE."</span><span class="p">)</span>
+
+<span class="c1"># Determine the best model</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=ba049f38-a3eb-426c-b1e4-39594f10b571">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [57]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">get_best_model</span><span class="p">(</span><span class="n">evaluation_results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>
+Conclusion: Best Model for Traditional Campaign is KNN based on RMSE.
+Conclusion: Best Model for Online Campaign is KNN based on RMSE.
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=3807ec4e-e743-44e7-95a8-876cb45836ab">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
 </div>
 </div>
 </div>
